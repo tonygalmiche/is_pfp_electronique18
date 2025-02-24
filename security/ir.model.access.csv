@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_is_famille,access_is_famille,model_is_famille,base.group_user,1,1,1,1
+access_is_sous_famille1,access_is_sous_famille1,model_is_sous_famille1,base.group_user,1,1,1,1
+access_is_sous_famille2,access_is_sous_famille2,model_is_sous_famille2,base.group_user,1,1,1,1
+access_is_emplacement_stock,access_is_emplacement_stock,model_is_emplacement_stock,base.group_user,1,1,1,1
+access_is_secteur,access_is_secteur,model_is_secteur,base.group_user,1,1,1,1
+access_is_type_entreprise,access_is_type_entreprise,model_is_type_entreprise,base.group_user,1,1,1,1
+access_is_source,access_is_source,model_is_source,base.group_user,1,1,1,1
+access_is_type_article,access_is_type_article,model_is_type_article,base.group_user,1,1,1,1
+access_is_account_invoice_line,access_is_account_invoice_line,model_is_account_invoice_line,base.group_user,1,0,0,0

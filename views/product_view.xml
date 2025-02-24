@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- is.type.article --> 
+    <record id="is_type_article_form" model="ir.ui.view">
+        <field name="name">is.type.article.form</field>
+        <field name="model">is.type.article</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_type_article_tree" model="ir.ui.view">
+        <field name="name">is.type.article.tree</field>
+        <field name="model">is.type.article</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+    <record id="is_type_article_search" model="ir.ui.view">
+        <field name="name">is.type.article.search</field>
+        <field name="model">is.type.article</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+           </search>
+        </field>
+    </record>
+    <record  id="is_type_article_action" model="ir.actions.act_window">
+        <field name="name">Type d'article</field>
+        <field name="res_model">is.type.article</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+
+    <!-- is.famille --> 
+    <record id="is_famille_form" model="ir.ui.view">
+        <field name="name">is.famille.form</field>
+        <field name="model">is.famille</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_famille_tree" model="ir.ui.view">
+        <field name="name">is.famille.tree</field>
+        <field name="model">is.famille</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+    <record id="is_famille_search" model="ir.ui.view">
+        <field name="name">is.famille.search</field>
+        <field name="model">is.famille</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+           </search>
+        </field>
+    </record>
+    <record  id="is_famille_action" model="ir.actions.act_window">
+        <field name="name">Familles</field>
+        <field name="res_model">is.famille</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- is.sous.famille1 --> 
+    <record id="is_sous_famille1_form" model="ir.ui.view">
+        <field name="name">is.sous.famille1.form</field>
+        <field name="model">is.sous.famille1</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_sous_famille1_tree" model="ir.ui.view">
+        <field name="name">is.sous.famille1.tree</field>
+        <field name="model">is.sous.famille1</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+    <record id="is_sous_famille1_search" model="ir.ui.view">
+        <field name="name">is.sous.famille1.search</field>
+        <field name="model">is.sous.famille1</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+           </search>
+        </field>
+    </record>
+    <record  id="is_sous_famille1_action" model="ir.actions.act_window">
+        <field name="name">Sous Familles 1</field>
+        <field name="res_model">is.sous.famille1</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- is.sous.famille2 --> 
+    <record id="is_sous_famille2_form" model="ir.ui.view">
+        <field name="name">is.sous.famille2.form</field>
+        <field name="model">is.sous.famille2</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_sous_famille2_tree" model="ir.ui.view">
+        <field name="name">is.sous.famille2.tree</field>
+        <field name="model">is.sous.famille2</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+    <record id="is_sous_famille2_search" model="ir.ui.view">
+        <field name="name">is.sous.famille2.search</field>
+        <field name="model">is.sous.famille2</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+           </search>
+        </field>
+    </record>
+    <record  id="is_sous_famille2_action" model="ir.actions.act_window">
+        <field name="name">Sous familles 2</field>
+        <field name="res_model">is.sous.famille2</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- is.emplacement.stock --> 
+    <record id="is_emplacement_stock_form" model="ir.ui.view">
+        <field name="name">is.emplacement.stock.form</field>
+        <field name="model">is.emplacement.stock</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="is_emplacement_stock_tree" model="ir.ui.view">
+        <field name="name">is.emplacement.stock.tree</field>
+        <field name="model">is.emplacement.stock</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+            </list>
+        </field>
+    </record>
+    <record id="is_emplacement_stock_search" model="ir.ui.view">
+        <field name="name">is.emplacement.stock.search</field>
+        <field name="model">is.emplacement.stock</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+           </search>
+        </field>
+    </record>
+    <record  id="is_emplacement_stock_action" model="ir.actions.act_window">
+        <field name="name">Emplacement de stock</field>
+        <field name="res_model">is.emplacement.stock</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- product.template -->
+    <record id="is_product_template_form_view" model="ir.ui.view">
+        <field name="name">product_template_form_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field name="is_lien_documentation"  widget="url" placeholder="documentation"/>
+                <field name="is_stock_mini"/>
+                <field name="is_lot_reappro"/>
+                <field name="is_type_article_id"/>
+                <field name="is_famille_id"/>
+                <field name="is_sous_famille1_id"/>
+                <field name="is_sous_famille2_id"/>
+                <field name="is_emplacement_stock_id"/>
+                <field name="is_note"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_product_template_tree_view" model="ir.ui.view">
+        <field name="name">is_product_template_tree_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_type_article_id"/>
+                <field name="is_famille_id"/>
+                <field name="is_sous_famille1_id"/>
+                <field name="is_sous_famille2_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_view_stock_product_template_tree" model="ir.ui.view">
+        <field name="name">is_view_stock_product_template_tree</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_stock_product_template_tree"/>
+        <field name="arch" type="xml">
+            <field name="qty_available" position="before">
+                <field name="is_emplacement_stock_id"/>
+            </field>
+            <field name="qty_available" position="after">
+                <field name="is_stock_mini"/>
+                <field name="is_qt_cde"/>
+                <field name="is_lot_reappro"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_product_template_search_view" model="ir.ui.view">
+        <field name="name">is_product_template_search_view</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_type_article_id"/>
+                <field name="is_famille_id"/>
+                <field name="is_sous_famille1_id"/>
+                <field name="is_sous_famille2_id"/>
+                <field name="is_emplacement_stock_id"/>
+                <field name="is_note"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- product.supplierinfo -->
+    <record id="is_product_supplierinfo_tree_view" model="ir.ui.view">
+        <field name="name">is_product_supplierinfo_tree_view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="product_code"      optional="show"/>
+                <field name="is_fabriquant"     optional="show"/>
+                <field name="is_ref_fabriquant" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record id="is_product_supplierinfo_form_view" model="ir.ui.view">
+        <field name="name">is_product_supplierinfo_form_view</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="is_fabriquant"/>
+                <field name="is_ref_fabriquant"/>
+            </field>
+        </field>
+    </record>
+</odoo>

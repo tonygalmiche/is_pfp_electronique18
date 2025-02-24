@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- is.secteur --> 
+        <record id="is_secteur_form" model="ir.ui.view">
+            <field name="name">is.secteur.form</field>
+            <field name="model">is.secteur</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_secteur_tree" model="ir.ui.view">
+            <field name="name">is.secteur.tree</field>
+            <field name="model">is.secteur</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                </list>
+            </field>
+        </record>
+        <record id="is_secteur_search" model="ir.ui.view">
+            <field name="name">is.secteur.search</field>
+            <field name="model">is.secteur</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+               </search>
+            </field>
+        </record>
+        <record  id="is_secteur_action" model="ir.actions.act_window">
+            <field name="name">Secteurs</field>
+            <field name="res_model">is.secteur</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- is.type.entreprise --> 
+        <record id="is_type_entreprise_form" model="ir.ui.view">
+            <field name="name">is.type.entreprise.form</field>
+            <field name="model">is.type.entreprise</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_type_entreprise_tree" model="ir.ui.view">
+            <field name="name">is.type.entreprise.tree</field>
+            <field name="model">is.type.entreprise</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                </list>
+            </field>
+        </record>
+        <record id="is_type_entreprise_search" model="ir.ui.view">
+            <field name="name">is.type.entreprise.search</field>
+            <field name="model">is.type.entreprise</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+               </search>
+            </field>
+        </record>
+        <record  id="is_type_entreprise_action" model="ir.actions.act_window">
+            <field name="name">Type d'entreprise</field>
+            <field name="res_model">is.type.entreprise</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- is.source --> 
+        <record id="is_source_form" model="ir.ui.view">
+            <field name="name">is.source.form</field>
+            <field name="model">is.source</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="is_source_tree" model="ir.ui.view">
+            <field name="name">is.source.tree</field>
+            <field name="model">is.source</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name" />
+                </list>
+            </field>
+        </record>
+        <record id="is_source_search" model="ir.ui.view">
+            <field name="name">is.source.search</field>
+            <field name="model">is.source</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name" />
+               </search>
+            </field>
+        </record>
+        <record  id="is_source_action" model="ir.actions.act_window">
+            <field name="name">Secteurs</field>
+            <field name="res_model">is.source</field>
+            <field name="view_mode">list,form</field>
+        </record>
+
+        <!-- res.partner -->
+        <record model="ir.ui.view" id="is_view_partner_form">
+            <field name="name">is_view_partner_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="is_type_entreprise_id"/>
+                    <field name="is_secteur_id"/>
+                    <field name="is_source_id"/>
+                </field>
+                <field name="property_account_position_id" position="before">
+                    <field name="is_iban"/>
+                    <field name="is_bic"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_view_partner_tree">
+            <field name="name">is_view_partner_tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="complete_name" position="after">
+                    <field name="is_type_entreprise_id"/>
+                    <field name="is_secteur_id"/>
+                    <field name="is_source_id"/>
+                </field>
+                <field name="phone" position="replace">
+                    <field name="property_payment_term_id"/>
+                </field>
+                <field name="email" position="replace">
+                    <field name="vat"/>
+                </field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="is_view_res_partner_filter">
+            <field name="name">is_view_res_partner_filter</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="is_type_entreprise_id"/>
+                    <field name="is_secteur_id"/>
+                    <field name="is_source_id"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

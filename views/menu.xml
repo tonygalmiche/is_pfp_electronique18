@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <menuitem
+            name="Indicateurs"
+            id="is_sales_indicateurs_menu" 
+            parent="sale.sale_menu_root" 
+            sequence="40"
+        />
+        <menuitem
+            name="Lignes de factures"
+            id="is_account_invoice_line_menu" 
+            action="is_account_invoice_line_action"
+            parent="is_sales_indicateurs_menu"
+            sequence="10"
+        />
+
+
+
+        <menuitem
+            name="Tables Articles"
+            id="is_sales_table_menu" 
+            parent="sale.menu_sale_config" 
+            sequence="900"
+        />
+        <menuitem
+            name="Types d'articles"
+            id="is_type_article_menu" 
+            action="is_type_article_action"  
+            parent="is_sales_table_menu" 
+            sequence="10"
+        />
+        <menuitem
+            name="Familles"
+            id="is_famille_menu" 
+            action="is_famille_action"  
+            parent="is_sales_table_menu" 
+            sequence="20"
+        />
+        <menuitem
+            name="Sous-Familles 1"
+            id="is_sous_famille1_menu" 
+            action="is_sous_famille1_action"  
+            parent="is_sales_table_menu" 
+            sequence="30"
+        />
+        <menuitem
+            name="Sous-Familles 2"
+            id="is_sous_famille2_menu" 
+            action="is_sous_famille2_action"  
+            parent="is_sales_table_menu" 
+            sequence="40"
+        />
+        <menuitem
+            name="Emplacements de stocks"
+            id="is_emplacement_stock_menu" 
+            action="is_emplacement_stock_action"  
+            parent="is_sales_table_menu" 
+            sequence="50"
+        />
+
+
+        <menuitem
+            name="Tables Clients"
+            id="is_table_client_menu" 
+            parent="sale.menu_sale_config" 
+            sequence="910"
+        />
+        <menuitem
+            name="Types d'entreprises"
+            id="is_type_entreprise_menu" 
+            action="is_type_entreprise_action"  
+            parent="is_table_client_menu" 
+            sequence="50"
+        />
+        <menuitem
+            name="Secteurs"
+            id="is_secteur_menu" 
+            action="is_secteur_action"  
+            parent="is_table_client_menu" 
+            sequence="60"
+        />
+        <menuitem
+            name="Sources"
+            id="is_source_menu" 
+            action="is_source_action"  
+            parent="is_table_client_menu" 
+            sequence="70"
+        />
+
+        <!-- Masquer les menus de base inutilisés -->
+       <menuitem id="spreadsheet_dashboard.spreadsheet_dashboard_menu_root" parent="base.menu_custom"/>
+       <menuitem id="mail.menu_root_discuss" parent="base.menu_custom"/>
+       <menuitem id="utm.menu_link_tracker_root" parent="base.menu_custom"/>
+    </data>
+</odoo>
