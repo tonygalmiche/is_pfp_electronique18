@@ -58,6 +58,7 @@ class ProductTemplate(models.Model):
     is_emplacement_stock_id = fields.Many2one('is.emplacement.stock', 'Emplacement de stock')
     is_qt_cde               = fields.Float('Signal de commande', compute=_is_qt_cde, store=False, digits='Product Unit of Measure')
     is_note                 = fields.Text('Note')
+    is_description_devis    = fields.Text('Description pour les devis')
 
 
 class ProductSupplierinfo(models.Model):

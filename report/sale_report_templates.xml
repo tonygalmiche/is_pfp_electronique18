@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-
 <template id="is_report_saleorder_document" name="is_report_saleorder_document" inherit_id="sale.report_saleorder_document">
-    <xpath expr="//div[@class='page']" position="replace">
+    <xpath expr="//div[hasclass('page')]" position="replace">
         <div class="page">
             <div class="oe_structure"/>
+
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-6">
                     <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Adresse de livraison et de facturation:</strong>
                     <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Adresse de facturation:</strong>
                     <div t-field="doc.partner_invoice_id"
@@ -20,7 +20,7 @@
                         <p t-if="doc.partner_id.vat">VAT: <span t-field="doc.partner_id.vat"/></p>
                     </div>
                 </div>
-                <div class="col-xs-5 col-xs-offset-1">
+                <div class="col-5 col-offset-1">
                     <div style="height:20mm"> </div>
                     <div t-field="doc.partner_id"
                         t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
@@ -33,143 +33,217 @@
                 <span t-field="doc.name"/>
             </h2>
 
-            <div class="row mt32 mb32" id="informations">
-                <div t-if="doc.client_order_ref" class="col-xs-2">
+            <div class="row" id="informations">
+                <div t-if="doc.client_order_ref" class="col-2">
                     <strong>Votre référence:</strong>
                     <p t-field="doc.client_order_ref"/>
                 </div>
-                <div t-if="doc.date_order" class="col-xs-2">
+                <div t-if="doc.date_order" class="col-2">
                     <strong t-if="doc.state not in ['draft','sent']">Date de la commande:</strong>
                     <strong t-if="doc.state in ['draft','sent']">Date du devis:</strong>
                     <p t-field="doc.date_order" t-field-options='{"format": "dd/MM/yyyy"}' />
                 </div>
 
-                <div t-if="doc.state in ['draft','sent']" class="col-xs-2">
+                <div t-if="doc.state in ['draft','sent']" class="col-2">
                     <strong>Date de validité:</strong>
                     <p t-field="doc.validity_date"/>
                 </div>
-                <div t-if="doc.user_id.name" class="col-xs-2">
+                <div t-if="doc.user_id.name" class="col-2">
                     <strong>Vendeur:</strong>
                     <p t-field="doc.user_id"/>
                 </div>
-                <div name="payment_term" t-if="doc.payment_term_id" class="col-xs-2">
+                <div name="payment_term" t-if="doc.payment_term_id" class="col-2">
                     <strong>Conditions de paiement:</strong>
                     <p t-field="doc.payment_term_id"/>
                 </div>
             </div>
 
             <!-- Is there a discount on at least one line? -->
-            <t t-set="display_discount" t-value="any([l.discount for l in doc.order_line])"/>
+            <t t-set="lines_to_report" t-value="doc._get_order_lines_to_report()"/>
+            <t t-set="display_discount" t-value="any(l.discount for l in lines_to_report)"/>
 
-            <t t-foreach="doc.order_lines_layouted()" t-as="page">
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th class="text-right">Quantité</th>
-                            <th class="text-right">Prix unitaire</th>
-                            <th t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">Disc.(%)</th>
-                            <th class="text-right">TVA</th>
-                            <th class="text-right" groups="sale.group_show_price_subtotal">Prix</th>
-                            <th class="text-right price_tax_included" groups="sale.group_show_price_total">Total</th>
+            <div class="oe_structure"></div>
+            <table class="o_has_total_table table o_main_table table-borderless">
+                <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                <thead style="display: table-row-group">
+                    <tr>
+                        <th name="th_description" class="text-start">Description</th>
+                        <th name="th_quantity" class="text-end text-nowrap">Quantité</th>
+                        <th name="th_priceunit" class="text-end text-nowrap">Prix unitaire</th>
+                        <th name="th_discount" t-if="display_discount" class="text-end">
+                            <span>Remise(%)</span>
+                        </th>
+                        <th name="th_taxes" class="text-end">TVA</th>
+                        <th name="th_subtotal" class="text-end">
+                            <span>Montant</span>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="sale_tbody">
+
+                    <t t-set="current_subtotal" t-value="0"/>
+
+                    <t t-foreach="lines_to_report" t-as="line">
+
+                        <t t-set="current_subtotal" t-value="current_subtotal + line.price_subtotal"/>
+
+                        <tr
+                            t-att-class="'fw-bold o_line_section' if (
+                                line.display_type == 'line_section'
+                                or line.product_type == 'combo'
+                            )
+                            else 'fst-italic o_line_note' if line.display_type == 'line_note'
+                            else ''"
+                        >
+                            <t t-if="not line.display_type and line.product_type != 'combo'">
+                                <td name="td_name"><span t-field="line.name"></span></td>
+                                <td name="td_quantity" class="text-end text-nowrap">
+                                    <span t-field="line.product_uom_qty"></span>
+                                    <span t-if="line.product_packaging_id">
+                                        (<span t-field="line.product_packaging_qty" t-options='{"widget": "integer"}'/> <span t-field="line.product_packaging_id"/>)
+                                    </span>
+                                </td>
+                                <td name="td_priceunit" class="text-end text-nowrap">
+                                    <span t-field="line.price_unit"></span>
+                                </td>
+                                <td t-if="display_discount" class="text-end">
+                                    <span t-field="line.discount"></span>
+                                </td>
+                                <t t-set="taxes" t-value="', '.join([(tax.invoice_label or tax.name) for tax in line.tax_id])"/>
+                                <td name="td_taxes" t-attf-class="text-end {{ 'text-nowrap' if len(taxes) &lt; 10 else '' }}">
+                                    <span t-out="taxes"></span>
+                                </td>
+                                <td t-if="not line.is_downpayment" name="td_subtotal" class="text-end o_price_total">
+                                    <span t-field="line.price_subtotal"></span>
+                                </td>
+                            </t>
+                            <t t-elif="line.display_type == 'line_section' or line.product_type == 'combo'">
+                                <td name="td_section_line" colspan="99">
+                                    <span t-field="line.name"></span>
+                                </td>
+                                <t t-set="current_section" t-value="line"/>
+                                <t t-set="current_subtotal" t-value="0"/>
+                            </t>
+                            <t t-elif="line.display_type == 'line_note'">
+                                <td name="td_note_line" colspan="99">
+                                    <span t-field="line.name"></span>
+                                </td>
+                            </t>
                         </tr>
-                   </thead>
-                   <tbody class="sale_tbody">
-                        <t t-foreach="page" t-as="layout_category">
 
-                            <t t-if="layout_category_size > 1 or page_size > 1" groups="sale.group_sale_layout">
-                                <tr class="active">
-                                    <td colspan="7" style="font-weight: bold; border-bottom: 1px solid black;">&amp;bull;
-                                        <t t-esc="layout_category['name']"/>
-                                    </td>
-                                </tr>
-                            </t>
-
-                            <!-- Lines associated -->
-                            <t t-foreach="layout_category['lines']" t-as="l">
-                                <tr>
-                                    <td><span t-field="l.name"/></td>
-                                    <td class="text-right">
-                                        <span t-field="l.product_uom_qty"/>
-                                        <span t-field="l.product_uom" groups="product.group_uom"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-field="l.price_unit"/>
-                                    </td>
-                                    <td t-if="display_discount" class="text-right" groups="sale.group_discount_per_so_line">
-                                        <span t-field="l.discount"/>
-                                    </td>
-                                    <td class="text-right">
-                                        <span t-esc="', '.join(map(lambda x: (x.description or x.name), l.tax_id))"/>
-                                    </td>
-                                    <td class="text-right" groups="sale.group_show_price_subtotal">
-                                        <span t-field="l.price_subtotal"
-                                            t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
-                                    </td>
-                                    <td class="text-right" groups="sale.group_show_price_total">
-                                        <span t-field="l.price_total"
-                                            t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
-                                    </td>
-                                </tr>
-                            </t>
-
-                            <t t-if="(layout_category_size > 1 or page_size > 1) and layout_category['subtotal']" groups="sale.group_sale_layout">
-                                <tr class="text-right">
-                                    <td colspan="6">
-                                        <strong>Total HT: </strong>
-                                        <t t-set="subtotal" t-value="sum(line.price_subtotal for line in layout_category['lines'])"/>
-                                        <span t-esc="subtotal" t-options="{'widget': 'monetary', 'display_currency': doc.pricelist_id.currency_id}"/>
-                                    </td>
-                                </tr>
-                            </t>
-
-                        </t>
-                    </tbody>
-                </table>
-
-                <t t-if="page_index &lt; page_size - 1" groups="sale.group_sale_layout">
-                    <p style="page-break-before:always;"> </p>
-                </t>
-            </t>
-
-            <div class="row" name="total">
-                <div class="col-xs-4 pull-right">
-                    <table class="table table-condensed">
-                        <tr class="border-black">
-                            <td><strong>Total HT</strong></td>
-                            <td class="text-right">
-                                <span t-field="doc.amount_untaxed"
-                                    t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
-                            </td>
-                        </tr>
-                        <t t-foreach="doc._get_tax_amount_by_group()" t-as="amount_by_group">
-                            <tr>
-                                <td><span t-esc="amount_by_group[0] or 'TVA'"/></td>
-                                <td class="text-right">
-                                    <span t-esc="amount_by_group[1]"
-                                        t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                        <t
+                            t-if="current_section and (
+                                line_last
+                                or lines_to_report[line_index+1].display_type == 'line_section'
+                                or lines_to_report[line_index+1].product_type == 'combo'
+                                or (
+                                    line.combo_item_id
+                                    and not lines_to_report[line_index+1].combo_item_id
+                                )
+                            ) and not line.is_downpayment"
+                        >
+                            <t t-set="current_section" t-value="None"/>
+                            <tr class="is-subtotal text-end">
+                                <td name="td_section_subtotal" colspan="99">
+                                    <strong class="mr16">Sous-total</strong>
+                                    <span
+                                        t-out="current_subtotal"
+                                        t-options='{"widget": "monetary", "display_currency": doc.currency_id}'
+                                    ></span>
                                 </td>
                             </tr>
                         </t>
-                        <tr class="border-black">
-                            <td><strong>Total TTC</strong></td>
-                            <td class="text-right">
-                                <span t-field="doc.amount_total"
-                                    t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
-                            </td>
-                        </tr>
-                    </table>
+                    </t>
+                </tbody>
+            </table>
+            <div class="clearfix" name="so_total_summary">
+                <div id="total" class="row mt-n3" name="total">
+                    <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                        <table class="o_total_table table table-borderless">
+                            <!-- Tax totals -->
+                            <!-- <t t-call="sale.document_tax_totals">
+                                <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                                <t t-set="currency" t-value="doc.currency_id"/>
+                            </t> -->
+
+
+
+
+                            <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                            <t t-set="currency" t-value="doc.currency_id"/>
+
+                            <t t-set="same_tax_base" t-value="tax_totals['same_tax_base']"/>
+                            <t t-foreach="tax_totals['subtotals']" t-as="subtotal">
+                                <tr class="o_subtotal">
+                                    <td>
+                                        <!-- <span t-out="subtotal['name']">Untaxed Amount</span> -->
+                                        <span>Total HT</span>
+                                    </td>
+                                    <td class="text-end">
+                                        <span t-att-class="oe_subtotal_footer_separator"
+                                            t-out="subtotal['base_amount_currency']"
+                                            t-options='{"widget": "monetary", "display_currency": currency}'
+                                        ></span>
+                                    </td>
+                                </tr>
+
+                                <t t-foreach="subtotal['tax_groups']" t-as="tax_group">
+                                    <tr class="o_taxes">
+                                        <t t-if="same_tax_base or tax_group['display_base_amount_currency'] is None">
+                                            <td>
+                                                <span class="text-nowrap" t-out="tax_group['group_name']"></span>
+                                            </td>
+                                            <td class="text-end o_price_total">
+                                                <span class="text-nowrap"
+                                                    t-out="tax_group['tax_amount_currency']"
+                                                    t-options='{"widget": "monetary", "display_currency": currency}'
+                                                ></span>
+                                            </td>
+                                        </t>
+                                        <t t-else="">
+                                            <td>
+                                                <span t-out="tax_group['group_name']"></span>
+                                                <span> on </span>
+                                                <span class="text-nowrap"
+                                                    t-out="tax_group['display_base_amount_currency']"
+                                                    t-options='{"widget": "monetary", "display_currency": currency}'
+                                                ></span>
+                                            </td>
+                                            <td class="text-end o_price_total">
+                                                <span class="text-nowrap"
+                                                    t-out="tax_group['tax_amount_currency']"
+                                                    t-options='{"widget": "monetary", "display_currency": currency}'
+                                                ></span>
+                                            </td>
+                                        </t>
+                                    </tr>
+                                </t>
+                            </t>
+   
+                            <!--Total amount with all taxes-->
+                            <tr class="o_total">
+                                <td><strong>Total TTC</strong></td>
+                                <td class="text-end">
+                                    <strong t-out="tax_totals['total_amount_currency']"
+                                            t-options='{"widget": "monetary", "display_currency": currency}'
+                                    >31.05</strong>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </div>
                 </div>
             </div>
-
-            <p t-field="doc.note" />
-            <p t-if="doc.payment_term_id.note">
-                <span t-field="doc.payment_term_id.note"/>
-            </p>
-            <p id="fiscal_position_remark" t-if="doc.fiscal_position_id and doc.fiscal_position_id.note">
-                <strong>Fiscal Position Remark:</strong>
-                <span t-field="doc.fiscal_position_id.note"/>
-            </p>
+            <div class="oe_structure"></div>
+            <div>
+                <span t-field="doc.note" t-attf-style="#{'text-align:justify;text-justify:inter-word;' if doc.company_id.terms_type != 'html' else ''}" name="order_note"/>
+                <div class="oe_structure"/>
+                <p t-if="doc.fiscal_position_id and not is_html_empty(doc.fiscal_position_id.sudo().note)"
+                    id="fiscal_position_remark">
+                    <strong>Position fiscale:</strong>
+                    <span t-field="doc.fiscal_position_id.sudo().note"></span>
+                </p>
+            </div>
             <div class="oe_structure"/>
         </div>
     </xpath>

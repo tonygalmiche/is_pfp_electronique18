@@ -2,7 +2,7 @@
 
 #TODO : 
 #- Rapport PDF
-#- Mettre sur Gihub et sur VPS
+#- Mettre sur VPS
 #- https sur VPS (Domaine à créer)
 #- Importer les données (clients)
 #- Créer les utilisateurs
@@ -38,11 +38,25 @@ InfoSaône - Module Odoo 18 pour PFP Electronique
         'views/is_account_invoice_line.xml',
         'views/sale_view.xml',
         'views/account_invoice_view.xml',
-        # 'report/layouts.xml',
-        # 'report/report_invoice.xml',
-        # 'report/sale_report_templates.xml',
+        'report/report_templates.xml',
+        'report/report_invoice.xml',
+        'report/sale_report_templates.xml',
         'views/menu.xml',
     ],
+
+
+    "assets": {
+        'web.assets_backend': [
+            'is_pfp_electronique18/static/src/**/*',
+         ],
+        'web.report_assets_common': [
+            'is_pfp_electronique18/static/src/scss/report.scss',
+
+        ]
+
+    },
+
+
     'license': 'AGPL-3',
     'installable': True,
     'application': True,

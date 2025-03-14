@@ -209,6 +209,13 @@
                 <field name="is_emplacement_stock_id"/>
                 <field name="is_note"/>
             </field>
+            <page name="inventory" position="after">
+                <page string="Notes">
+                    <group string="Description pour les devis">
+                           <field name="is_description_devis" nolabel="1"/>
+                    </group>
+                </page>
+            </page>
         </field>
     </record>
     <record id="is_product_template_tree_view" model="ir.ui.view">
@@ -233,9 +240,9 @@
                 <field name="is_emplacement_stock_id"/>
             </field>
             <field name="qty_available" position="after">
-                <field name="is_stock_mini"/>
-                <field name="is_qt_cde"/>
-                <field name="is_lot_reappro"/>
+                <field name="is_stock_mini"  optional="show"/>
+                <field name="is_qt_cde"      optional="show"/>
+                <field name="is_lot_reappro" optional="show"/>
             </field>
         </field>
     </record>
