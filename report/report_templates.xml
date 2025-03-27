@@ -18,7 +18,7 @@
                         <span t-field="company.partner_id.zip"/> <span t-field="company.partner_id.city"/><br />
                         <div>FRANCE</div>
                     </div>
-                    <div class="report_header" t-field="company.report_header"/>
+                    <div class="report_header" t-field="company.is_report_header"/>
                 </div>
             </div>
         </div>
