@@ -11,6 +11,9 @@
                     .o_form_view.o_xxl_form_view .o_form_sheet_bg > .o_form_sheet {
                         max-width: 1800px;
                     }
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
                 </style>
             </xpath>
             <field name="client_order_ref" position="replace"/>
@@ -18,13 +21,16 @@
                 <field name="client_order_ref"/>
             </field>
             <xpath expr="//field[@name='order_line']" position="attributes">
-                    <attribute name="widget"></attribute>
+                <attribute name="widget"></attribute>
+            </xpath>
+            <xpath expr="//group[@name='order_details']/field[@name='date_order']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
+            <xpath expr="//group[@name='order_details']/div[1]" position="attributes">
+                <attribute name="groups"></attribute>
             </xpath>
         </field>
     </record>
-
-
-
     <record id="is_view_order_tree" model="ir.ui.view">
         <field name="name">is_view_order_tree</field>
         <field name="model">sale.order</field>
