@@ -35,8 +35,7 @@
                         </div>
                     </div> -->
                     <h2>
-                        <span t-if="o.move_type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')">Facture</span>
-                        <span t-if="o.move_type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+                        <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">Facture</span>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Facture brouillon</span>
                         <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Facture annulée</span>
                         <span t-if="o.move_type == 'out_refund'">Avoir</span>
@@ -99,7 +98,7 @@
 
 
 
-                            <tr t-att-class="'fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
+                            <tr style="border-top: 1px solid black;" t-att-class="'fw-bold o_line_section' if line.display_type == 'line_section' else 'fst-italic o_line_note' if line.display_type == 'line_note' else ''">
                                 <t t-if="line.display_type == 'product'" name="account_invoice_line_accountable">
                                     <td name="account_invoice_line_name">
                                         <span t-if="line.name" t-field="line.name" t-options="{'widget': 'text'}">Bacon Burger</span>
