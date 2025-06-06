@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="is_report_delivery_document" name="is_report_invoice_document" inherit_id="stock.report_delivery_document">
+        <xpath expr="//div[hasclass('page')]" position="replace">
+            <div class="page">
+                <div class="row">
+                    <div class="col-6">
+                        <strong t-if="o.sale_id.partner_shipping_id == o.sale_id.partner_invoice_id">Adresse de livraison et de facturation:</strong>
+                        <strong t-if="o.sale_id.partner_shipping_id != o.sale_id.partner_invoice_id">Adresse de facturation:</strong>
+                        <div t-field="o.sale_id.partner_invoice_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
+                        <p t-if="o.sale_id.partner_id.vat">VAT: <span t-field="o.sale_id.partner_id.vat"/></p>
+                        <div t-if="o.sale_id.partner_shipping_id != o.sale_id.partner_invoice_id" class="mt8">
+                            <strong>Adresse de livraison:</strong>
+                            <div t-field="o.sale_id.partner_shipping_id"
+                                t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
+                            <p t-if="o.sale_id.partner_id.vat">VAT: <span t-field="o.sale_id.partner_id.vat"/></p>
+                        </div>
+                    </div>
+                    <div class="col-5 col-offset-1">
+                        <div style="height:20mm"> </div>
+                        <div t-field="o.sale_id.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                    </div>
+                </div>
+                <h2>
+                    Bon de livraison n°<span t-field="o.name"></span>
+                </h2>
+                <div class="row" id="informations">
+                    <div t-if="o.sale_id.client_order_ref" class="col-2">
+                        <strong>Votre référence:</strong>
+                        <p t-field="o.sale_id.client_order_ref"/>
+                    </div>
+                    <div t-if="o.sale_id.date_order" class="col-2">
+                        <strong t-if="o.sale_id.state not in ['draft','sent']">Date de la commande:</strong>
+                        <strong t-if="o.sale_id.state in ['draft','sent']">Date du devis:</strong>
+                        <p t-field="o.sale_id.date_order" t-options='{"format": "dd/MM/yyyy"}' />
+                    </div>
+                    <div t-if="o.sale_id.state in ['draft','sent']" class="col-2">
+                        <strong>Date de validité:</strong>
+                        <p t-field="o.sale_id.validity_date"/>
+                    </div>
+                    <div t-if="o.sale_id.user_id.name" class="col-2">
+                        <strong>Vendeur:</strong>
+                        <p t-field="o.sale_id.user_id"/>
+                    </div>
+                    <div name="payment_term" t-if="o.sale_id.payment_term_id" class="col-2">
+                        <strong>Conditions de paiement:</strong>
+                        <p t-field="o.sale_id.payment_term_id"/>
+                    </div>
+                    <div t-if="o.state" class="col col-3 mw-100 mb-2" name="div_sched_date">
+                        <strong>Date de livraison:</strong>
+                        <div t-if="o.state == 'done'" t-field="o.date_done" class="m-0"/>
+                        <div t-else="" t-field="o.scheduled_date" t-options='{"format": "dd/MM/yyyy"}' class="m-0"/>
+                    </div>
+                </div>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th name="th_sm_product">Description</th>
+                            <th name="th_sm_ordered" class="text-end">Demande</th>
+                            <th name="th_sm_quantity" class="text-end">Livré</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
+                        <tr t-foreach="lines" t-as="move">
+                            <td>
+                                <span t-field="move.product_id"></span>
+                                <p><span t-field="move.description_picking"/></p>
+                             </td>
+                            <td class="text-end">
+                                <span t-field="move.product_uom_qty"></span>
+                             </td>
+                            <td class="text-end">
+                                <span t-field="move.quantity"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p t-field="o.is_info_complementaire"/>
+            </div>
+        </xpath>
+    </template>
+</odoo>

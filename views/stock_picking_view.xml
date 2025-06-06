@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="is_view_picking_form" model="ir.ui.view">
+        <field name="name">is_view_picking_form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]" position="inside">
+                <style>
+                    .o_form_view.o_xxl_form_view .o_form_sheet_bg > .o_form_sheet {
+                        max-width: 1800px;
+                    }
+                    .o_form_label{
+                        white-space: nowrap;
+                    }
+                </style>
+            </xpath>
+            <xpath expr="//button[@name='do_print_picking']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='362']" position="attributes">
+                <attribute name="invisible">1 or state != 'done'</attribute>
+            </xpath>
+            <xpath expr="//button[@name='380']" position="attributes">
+                <attribute name="invisible">1 or state != 'done'</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_confirm']" position="before">
+                <button 
+                    name="recopier_description_commande_action" 
+                    invisible="state in ['done','cancel']" 
+                    string="Recopier description commande" type="object"
+                />
+            </xpath>
+            <field name="picking_type_id" position="after">
+                <field name="is_info_complementaire"/>
+            </field>
+            <field name="origin" position="after">
+                <field name="sale_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

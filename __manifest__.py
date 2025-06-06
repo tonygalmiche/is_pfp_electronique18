@@ -40,9 +40,11 @@ InfoSaône - Module Odoo 18 pour PFP Electronique
         'views/is_account_invoice_line.xml',
         'views/sale_view.xml',
         'views/account_invoice_view.xml',
+        'views/stock_picking_view.xml',
         'report/report_templates.xml',
-       'report/report_invoice.xml',
+        'report/report_invoice.xml',
         'report/sale_report_templates.xml',
+        'report/report_deliveryslip.xml',
         'views/menu.xml',
     ],
 

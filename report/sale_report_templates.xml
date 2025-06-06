@@ -41,12 +41,7 @@
                     <strong t-if="doc.state not in ['draft','sent']">Date de la commande:</strong>
                     <strong t-if="doc.state in ['draft','sent']">Date du devis:</strong>
                     <p t-field="doc.date_order" t-options='{"format": "dd/MM/yyyy"}' />
-
-
-
-
                 </div>
-
                 <div t-if="doc.state in ['draft','sent']" class="col-2">
                     <strong>Date de validité:</strong>
                     <p t-field="doc.validity_date"/>
