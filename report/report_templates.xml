@@ -43,9 +43,9 @@
                 <span t-field="company.name"/> au capital de 18000€ - 
 
                 <t t-if="o and o.company_id and o.company_id.ape">
-                    NAF : <span t-field="company.ape"/> - 
-                    N°TVA : <span t-field="company.vat"/> - 
-                    SIRET : <span t-field="company.siret"/> - 
+                    NAF : <span t-field="o.company_id.ape"/> - 
+                    N°TVA : <span t-field="o.company_id.vat"/> - 
+                    SIRET : <span t-field="o.company_id.siret"/> - 
                 </t>
 
 
