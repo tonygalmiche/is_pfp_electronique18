@@ -41,9 +41,14 @@
                     IBAN : <span t-field="company.partner_id.is_iban"/> - BIC : <span t-field="company.partner_id.is_bic"/>
                 </div>
                 <span t-field="company.name"/> au capital de 18000€ - 
-                NAF : <span t-field="company.ape"/> - 
-                N°TVA : <span t-field="company.vat"/> - 
-                SIRET : <span t-field="company.siret"/> - 
+
+                <t t-if="o and o.company_id and o.company_id.ape">
+                    NAF : <span t-field="company.ape"/> - 
+                    N°TVA : <span t-field="company.vat"/> - 
+                    SIRET : <span t-field="company.siret"/> - 
+                </t>
+
+
                 <span class="page"/>/<span class="topage"/>
             </div>
         </div>
