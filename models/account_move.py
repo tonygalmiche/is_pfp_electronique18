@@ -18,6 +18,15 @@ class account_move(models.Model):
             obj.is_sale_order_id=order_id
 
 
+
+    # def action_print_pdf(self):
+    #     self.ensure_one()
+    #     print("TEST")
+    #     return self.env.ref('account.account_invoices').report_action(self.id)
+
+
+
+
 class account_move_line(models.Model):
     _inherit = 'account.move.line'
   

@@ -274,5 +274,8 @@
                 <div id="qrcode"></div>
             </xpath>
         </template>
+
+
+
     </data>
 </odoo>

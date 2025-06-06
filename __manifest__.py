@@ -30,6 +30,7 @@ InfoSaône - Module Odoo 18 pour PFP Electronique
         'mail',
         'account',
         'purchase',
+        'web',
 ],
     'data' : [
         'security/ir.model.access.csv',

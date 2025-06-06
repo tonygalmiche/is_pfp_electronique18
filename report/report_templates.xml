@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="web.external_layout_standard">
-
-
        <div class="header">
             <div class="row">
                 <div class="col-4">
@@ -18,7 +16,9 @@
                         <span t-field="company.partner_id.zip"/> <span t-field="company.partner_id.city"/><br />
                         <div>FRANCE</div>
                     </div>
-                    <div class="report_header" t-field="company.is_report_header"/>
+                    <t t-if="o and o.company_id and o.company_id.is_report_header">
+                        <div class="report_header" t-esc="o.company_id.is_report_header"/>
+                    </t>
                 </div>
             </div>
         </div>
@@ -31,7 +31,6 @@
              t-att-data-oe-lang="o and o.env.context.get('lang')">
             <t t-out="0"/>
         </div>
-
 
         <div class="footer">
             <div class="text-center" style="border-top: 1px solid black;">
