@@ -31,22 +31,9 @@
                         <strong>Votre référence:</strong>
                         <p t-field="o.sale_id.client_order_ref"/>
                     </div>
-                    <div t-if="o.sale_id.date_order" class="col-2">
-                        <strong t-if="o.sale_id.state not in ['draft','sent']">Date de la commande:</strong>
-                        <strong t-if="o.sale_id.state in ['draft','sent']">Date du devis:</strong>
-                        <p t-field="o.sale_id.date_order" t-options='{"format": "dd/MM/yyyy"}' />
-                    </div>
                     <div t-if="o.sale_id.state in ['draft','sent']" class="col-2">
                         <strong>Date de validité:</strong>
                         <p t-field="o.sale_id.validity_date"/>
-                    </div>
-                    <div t-if="o.sale_id.user_id.name" class="col-2">
-                        <strong>Vendeur:</strong>
-                        <p t-field="o.sale_id.user_id"/>
-                    </div>
-                    <div name="payment_term" t-if="o.sale_id.payment_term_id" class="col-2">
-                        <strong>Conditions de paiement:</strong>
-                        <p t-field="o.sale_id.payment_term_id"/>
                     </div>
                     <div t-if="o.state" class="col col-3 mw-100 mb-2" name="div_sched_date">
                         <strong>Date de livraison:</strong>
