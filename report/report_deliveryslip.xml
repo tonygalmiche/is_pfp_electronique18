@@ -68,7 +68,10 @@
                         </tr>
                     </tbody>
                 </table>
-                <p t-field="o.is_info_complementaire"/>
+                <t t-if="o.is_info_complementaire">
+                    <strong>Conditions de livraison:</strong>
+                    <p t-field="o.is_info_complementaire"/>
+                </t>
             </div>
         </xpath>
     </template>
