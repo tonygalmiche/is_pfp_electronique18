@@ -14,16 +14,15 @@
                         <div style="height:10mm"> </div>
                         <strong>Adresse de livraison:</strong>
                         <t t-if="o.partner_id.parent_id">
-                            <div><span t-field="o.partner_id.name"/></div>
                             <div t-field="o.partner_id.parent_id"
                                 t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
+                            <div>Contact : <span t-field="o.partner_id.name"/></div>
                         </t>
-
                         <t t-if="not o.partner_id.parent_id">
                             <div t-field="o.partner_id"
                                 t-options='{"widget": "contact", "fields": ["address", "name", "phone", "fax"], "no_marker": True, "phone_icons": True}'/>
                         </t>
-                        <p t-if="o.sale_id.partner_id.vat">VAT: <span t-field="o.sale_id.partner_id.vat"/></p>
+                        <!-- <p t-if="o.sale_id.partner_id.vat">VAT: <span t-field="o.sale_id.partner_id.vat"/></p> -->
                      </div>
                 </div>
                 <h2>
@@ -40,8 +39,8 @@
                     </div>
                     <div t-if="o.state" class="col col-3 mw-100 mb-2" name="div_sched_date">
                         <strong>Date de livraison:</strong>
-                        <div t-if="o.state == 'done'" t-field="o.date_done" class="m-0"/>
-                        <div t-else="" t-field="o.scheduled_date" t-options='{"format": "dd/MM/yyyy"}' class="m-0"/>
+                        <div t-if="o.state == 'done'" t-field="o.date_done"      t-options='{"format": "dd/MM/yyyy"}' class="m-0"/>
+                        <div t-else=""                t-field="o.scheduled_date" t-options='{"format": "dd/MM/yyyy"}' class="m-0"/>
                     </div>
                 </div>
                 <table class="table table-borderless">
@@ -56,8 +55,8 @@
                         <t t-set="lines" t-value="o.move_ids.filtered(lambda x: x.product_uom_qty)"/>
                         <tr t-foreach="lines" t-as="move">
                             <td>
-                                <span t-field="move.product_id"></span>
-                                <p><span t-field="move.description_picking"/></p>
+                                <!-- <span t-field="move.product_id"></span> -->
+                                <span t-field="move.description_picking"/>
                              </td>
                             <td class="text-end">
                                 <span t-field="move.product_uom_qty"></span>
